@@ -18,7 +18,7 @@ class MainActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener {
         tabLayout = findViewById(R.id.tab_layout)
 
         tabLayout.addOnTabSelectedListener(this)
-        displayCategoriesFragment();
+        displaySearchFragment();
     }
 
     fun displayCategoriesFragment(){
