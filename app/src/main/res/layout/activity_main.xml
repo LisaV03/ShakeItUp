@@ -7,13 +7,17 @@
     tools:context=".MainActivity">
 
     <androidx.fragment.app.FragmentContainerView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
         android:id="@+id/fragment_container_view"
+        android:name="com.example.shakeitup.ui.search.SearchFragment"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@+id/tab_layout"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        tools:layout="@layout/fragment_search" />
 
     <com.google.android.material.tabs.TabLayout
         android:layout_width="match_parent"
@@ -24,18 +28,21 @@
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:id="@+id/search_tab"
             android:text="Search"
             />
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:id="@+id/category_tab"
             android:text="Categories"
             />
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:id="@+id/ingredient_tab"
             android:text="Ingredients"
             />
 

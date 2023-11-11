@@ -10,15 +10,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.shakeitup.R
 import com.example.shakeitup.core.model.Categories
-import okhttp3.Call
-import okhttp3.Callback
-import okhttp3.HttpUrl
-import okhttp3.HttpUrl.Companion.toHttpUrlOrNull
-import okhttp3.OkHttpClient
-import okhttp3.Request
-import okhttp3.Response
-import java.io.IOException
-import java.net.URL
+import com.example.shakeitup.core.service.CategoriesFetcher
+import com.google.android.material.progressindicator.CircularProgressIndicator
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -40,8 +33,6 @@ class CategoriesFragment : Fragment() {
    // override fun onCreate(savedInstanceState: Bundle?) {
      //   super.onCreate(savedInstanceState)
        // arguments?.let {
-         //   param1 = it.getString(ARG_PARAM1)
-           // param2 = it.getString(ARG_PARAM2)
         //}
     //}
 
@@ -75,21 +66,36 @@ class CategoriesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val categories : ArrayList<Categories> = ArrayList<Categories>()
-        val cat1 : Categories = Categories("category 1")
-        val cat2 : Categories = Categories("category 2")
-        categories.add(cat1)
-        categories.add(cat2)
-
-        val categoriesAdapter = CategoriesAdapter(categories)
-
-        // Set the LayoutManager that
-        // this RecyclerView will use.
         val recyclerView:RecyclerView=view.findViewById(R.id.recycler_view_categories)
-        recyclerView.layoutManager = LinearLayoutManager(context)
 
-        // adapter instance is set to the
-        // recyclerview to inflate the items.
-        recyclerView.adapter = categoriesAdapter
+        val progressIndicator: CircularProgressIndicator = view.findViewById(R.id.progress_indicator)
+
+        recyclerView.visibility = View.GONE
+        progressIndicator.visibility = View.VISIBLE
+        progressIndicator.isIndeterminate = true
+
+
+        CategoriesFetcher.fetchCategories { categories ->
+            requireActivity().runOnUiThread {
+                val categoriesAdapter = CategoriesAdapter(categories)
+                // Set the LayoutManager that
+                // this RecyclerView will use.
+
+
+                recyclerView.layoutManager = LinearLayoutManager(context)
+
+                // adapter instance is set to the
+                // recyclerview to inflate the items.
+                recyclerView.adapter = categoriesAdapter
+                recyclerView.visibility = View.VISIBLE
+                progressIndicator.visibility = View.GONE
+            }
+        }
+
+
+
+
+
+
     }
 }

@@ -7,30 +7,39 @@
     tools:context=".ui.categories.CategoriesFragment"
     android:orientation="horizontal">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
 
+
         >
+        <com.google.android.material.progressindicator.CircularProgressIndicator
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:id="@+id/progress_indicator"
+            />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Categories"
             android:id="@+id/categories_title"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            android:textSize="24sp"
+            android:layout_margin="10sp"/>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:id="@+id/recycler_view_categories"
-            app:layout_constraintTop_toBottomOf="@id/categories_title"
-            app:layout_constraintStart_toStartOf="parent"
+            android:layout_below="@+id/categories_title"
             />
 
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </RelativeLayout>
+
+
 
 
 

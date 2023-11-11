@@ -16,7 +16,6 @@ class MainActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener {
         setContentView(R.layout.activity_main)
 
         tabLayout = findViewById(R.id.tab_layout)
-
         tabLayout.addOnTabSelectedListener(this)
         displaySearchFragment();
     }
