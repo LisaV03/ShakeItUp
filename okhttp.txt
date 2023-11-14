@@ -1,0 +1,28 @@
+val client = OkHttpClient()
+
+
+        val url = URL("https://example.com/api")
+        val request = Request.Builder().url(url).build()
+        client
+            .newCall(request)
+            .enqueue(object: Callback {
+                override fun onFailure(call: Call, e: IOException) {
+                    Log.i("OKHTTP", "OnFailure: ${e.localizedMessage}")
+                }
+                override fun onResponse(call: Call, response: Response) {
+                    Log.i("OKHTTP", "OnSuccess")
+                    Log.i("OKHTTP", response.networkResponse.toString())
+                }
+            })
+        val urlBuilder: HttpUrl.Builder = (www.thecocktaildb.com/api/json/v1/1/list.php?c=list  + "/ex/bars").toHttpUrlOrNull()!!.newBuilder()
+        urlBuilder.addQueryParameter("id", "1")
+
+        val url: String = urlBuilder.build().toString()
+
+        val request: Request = Builder()
+            .url(url)
+            .build()
+        val call = client.newCall(request)
+        val response = call.execute()
+
+    }
