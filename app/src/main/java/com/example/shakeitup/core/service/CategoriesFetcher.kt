@@ -14,34 +14,19 @@ import java.io.IOException
 import java.net.URL
 
 class CategoriesFetcher {
-    //API route
-
-    //GET v1/1/list.php?c=list
-
-
-     fun fetchCategories(success: (List<Categories>) -> Unit, //Unit c'est comme void en java ici le type de success c'est une fonction qui prend une liste et renvoie void
-         failure: (Error) -> Unit){
-        //fait un appel à OKhttp
-        // renvoie des données en asynchrone donc thread séparé
-
-        //Quand appel est terminé et que tout s'est bien passé on appelle la fonction success
-
-
-
-    }
-
     companion object {
-        fun fetchCategories(success: (ArrayList<Categories>) -> Unit) {
+        fun fetchCategories(success: (ArrayList<Categories>) -> Unit, failure: () -> Unit) {
+
             val client = OkHttpClient()
-
-
             val url = URL("https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list")
             val request = Request.Builder().url(url).build()
+            // Request
             client
                 .newCall(request)
                 .enqueue(object : Callback {
                     override fun onFailure(call: Call, e: IOException) {
                         Log.i("OKHTTP", "OnFailure: ${e.localizedMessage}")
+                        failure()
                     }
 
                     override fun onResponse(call: Call, response: Response) {
@@ -49,16 +34,17 @@ class CategoriesFetcher {
                         if (response.isSuccessful) {
                             val responseBody = response.body?.string()
                             Log.i("OKHTTP", responseBody ?: "Empty")
+
+                            // Deserialize the category in an List of Categories
                             val gson = Gson()
                             val categoryResponseType = object : TypeToken<CategoryResponse>() {}.type
-
                             val categoryResponse: CategoryResponse = gson.fromJson(responseBody, categoryResponseType)
                             val categoryList: List<Categories> = categoryResponse.drinks
 
                             success(categoryList as ArrayList<Categories>)
                         }
                         else {
-                            //TODO with on failure
+                           failure()
                         }
                     }
 
