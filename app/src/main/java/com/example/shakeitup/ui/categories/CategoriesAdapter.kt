@@ -5,12 +5,13 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import com.example.shakeitup.R
+import com.example.shakeitup.core.Utils.FragmentChangeListener
 import com.example.shakeitup.core.model.Categories
 
-class CategoriesAdapter(val categories : ArrayList<Categories>): Adapter<CategoriesViewHolder>() {
+class CategoriesAdapter(private val fragmentChangeListener: FragmentChangeListener, val categories : ArrayList<Categories>): Adapter<CategoriesViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoriesViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.categories_layout, parent, false)
-        return CategoriesViewHolder(itemView)
+        return CategoriesViewHolder(itemView, fragmentChangeListener)
     }
 
     override fun getItemCount(): Int {

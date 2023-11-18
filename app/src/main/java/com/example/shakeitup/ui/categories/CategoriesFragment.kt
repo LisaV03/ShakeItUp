@@ -5,9 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.shakeitup.R
+import com.example.shakeitup.core.Utils.FragmentChangeListener
 import com.example.shakeitup.core.model.Categories
 import com.example.shakeitup.core.service.CategoriesFetcher
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -19,7 +21,7 @@ import com.google.android.material.progressindicator.CircularProgressIndicator
  * Use the [CategoriesFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class CategoriesFragment : Fragment() {
+class CategoriesFragment : Fragment(), FragmentChangeListener {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,6 +32,7 @@ class CategoriesFragment : Fragment() {
     }
 
     companion object {
+
         @JvmStatic
         fun newInstance()=
             CategoriesFragment()
@@ -47,7 +50,7 @@ class CategoriesFragment : Fragment() {
 
         fun success(categories : ArrayList<Categories>) {
             requireActivity().runOnUiThread {
-                val categoriesAdapter = CategoriesAdapter(categories)
+                val categoriesAdapter = CategoriesAdapter(this, categories)
 
                 recyclerView.layoutManager = LinearLayoutManager(context)
                 recyclerView.adapter = categoriesAdapter
@@ -70,8 +73,15 @@ class CategoriesFragment : Fragment() {
         CategoriesFetcher.fetchCategories({ categories -> success(categories)},{error()})
 
 
-
     }
+
+    override fun onFragmentChange(newFragment: Fragment) {
+        requireActivity().supportFragmentManager.beginTransaction()
+            .replace(R.id.fragment_container_view, newFragment)
+            .addToBackStack(null)
+            .commit()
+    }
+
 
 
 }

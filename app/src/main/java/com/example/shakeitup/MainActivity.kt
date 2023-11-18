@@ -2,7 +2,10 @@ package com.example.shakeitup
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.service.voice.VoiceInteractionSession.ActivityId
 import android.util.Log
+import androidx.fragment.app.Fragment
+import com.example.shakeitup.core.Utils.FragmentChangeListener
 import com.example.shakeitup.ui.categories.CategoriesFragment
 import com.example.shakeitup.ui.ingredients.IngredientsFragment
 import com.example.shakeitup.ui.search.SearchFragment
@@ -17,7 +20,11 @@ class MainActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener {
 
         tabLayout = findViewById(R.id.tab_layout)
         tabLayout.addOnTabSelectedListener(this)
-        displaySearchFragment();
+
+        displaySearchFragment()
+        //display first fragment
+        //val categoriesFragment = CategoriesFragment()
+        //supportFragmentManager.beginTransaction().replace(R.id.fragment_category, CategoriesFragment.newInstance()).commit()
     }
 
     fun displayCategoriesFragment(){
@@ -57,4 +64,8 @@ class MainActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener {
 
     override fun onTabReselected(tab: TabLayout.Tab?) {
     }
+
+
+
+
 }
