@@ -5,11 +5,23 @@
     android:layout_height="match_parent"
     tools:context=".ui.ingredients.IngredientsFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Ingredients"
-        android:id="@+id/fragment_ingredients"/>
+        android:layout_height="match_parent">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Ingredients"
+            android:id="@+id/fragment_ingredients"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/recycler_view_ingredient"
+            android:layout_below="@+id/fragment_ingredients"
+            />
+    </RelativeLayout>
+
 
 </FrameLayout>
