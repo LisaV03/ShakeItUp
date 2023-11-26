@@ -20,6 +20,7 @@ class CategoriesAdapter(private val fragmentChangeListener: FragmentChangeListen
 
     override fun onBindViewHolder(holder: CategoriesViewHolder, position: Int) {
         holder.textView.text = categories[position].name
+
     }
 
 

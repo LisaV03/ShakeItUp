@@ -1,3 +1,4 @@
-Add the tab Bar with Search, Categories and Ingredients
-Create the http call to categories and display them
-Display the list of cocktails by categories after clicking on the card in the category tab
+1. Add the tab Bar with Search, Categories and Ingredients
+2. Create the http call to categories and display them
+3. Display the list of cocktails by categories after clicking on the card in the category tab
+4. Display the details of a recipe

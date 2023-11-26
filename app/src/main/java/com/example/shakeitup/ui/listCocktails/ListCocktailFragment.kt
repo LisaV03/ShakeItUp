@@ -102,6 +102,9 @@ class ListCocktailFragment : Fragment(), FragmentChangeListener {
     }
 
     override fun onFragmentChange(newFragment: Fragment) {
-        TODO("Not yet implemented")
+        requireActivity().supportFragmentManager.beginTransaction()
+            .replace(R.id.fragment_container_view, newFragment)
+            .addToBackStack(null)
+            .commit()
     }
 }

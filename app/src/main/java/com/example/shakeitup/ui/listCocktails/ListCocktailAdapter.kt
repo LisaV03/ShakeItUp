@@ -1,5 +1,6 @@
 package com.example.shakeitup.ui.listCocktails
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -19,6 +20,9 @@ class ListCocktailAdapter(private val fragmentChangeListener: FragmentChangeList
 
         override fun onBindViewHolder(holder: ListCocktailViewHolder, position: Int) {
             holder.textView.text = cocktails[position].name
+            holder.setCocktailClicked(cocktails[position])
+            Log.i("ADAPTER", "set the cocktail")
+            Log.i("ADAPTER", "cocktail name : "+ cocktails[position].name)
         }
 
 

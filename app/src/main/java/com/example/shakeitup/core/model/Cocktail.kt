@@ -1,8 +1,9 @@
 package com.example.shakeitup.core.model
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
-class Cocktail(name: String, image: String, id: Int) {
+class Cocktail(name: String, image: String, id: Int) : Serializable{
     @SerializedName("strDrink")
     val name: String = name
 
