@@ -2,3 +2,4 @@
 2. Create the http call to categories and display them
 3. Display the list of cocktails by categories after clicking on the card in the category tab
 4. Display the details of a recipe
+5. Display the list of ingredients
