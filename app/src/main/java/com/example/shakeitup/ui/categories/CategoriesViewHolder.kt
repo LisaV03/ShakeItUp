@@ -21,7 +21,7 @@ class CategoriesViewHolder(itemView: View, private val fragmentChangeListener: F
         cardView = itemView.findViewById(R.id.category_card)
 
         cardView.setOnClickListener {
-            fragmentChangeListener.onFragmentChange(ListCocktailFragment.newInstance(textView.text.toString()))
+            fragmentChangeListener.onFragmentChange(ListCocktailFragment.newInstance(textView.text.toString(), 0))
         }
 
         }

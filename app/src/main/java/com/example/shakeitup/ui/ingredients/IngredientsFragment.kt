@@ -9,16 +9,23 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.shakeitup.R
+import com.example.shakeitup.core.Utils.FragmentChangeListener
 import com.example.shakeitup.core.service.IngredientsFetcher
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.progressindicator.CircularProgressIndicator
 
-class IngredientsFragment : Fragment() {
+class IngredientsFragment : Fragment(), FragmentChangeListener {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_ingredients, container, false)
+    }
+
+
+    companion object {
+        @JvmStatic
+        fun newInstance() = IngredientsFragment()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -33,7 +40,7 @@ class IngredientsFragment : Fragment() {
 
         fun success(ingredients : ArrayList<String>) {
             requireActivity().runOnUiThread {
-                val ingredientAdapter = IngredientAdapter(ingredients)
+                val ingredientAdapter = IngredientAdapter(this, ingredients)
                 recyclerViewIngredients.layoutManager = LinearLayoutManager(context)
                 recyclerViewIngredients.adapter = ingredientAdapter
                 recyclerViewIngredients.visibility = View.VISIBLE
@@ -52,8 +59,14 @@ class IngredientsFragment : Fragment() {
         }
         IngredientsFetcher.fetchIngredients({ ingredients -> success(ingredients)},{error()})
     }
-    companion object {
-        @JvmStatic
-        fun newInstance() = IngredientsFragment()
+
+
+    override fun onFragmentChange(newFragment: Fragment) {
+        requireActivity().supportFragmentManager.beginTransaction()
+            .replace(R.id.fragment_container_view, newFragment)
+            .addToBackStack(null)
+            .commit()
     }
+
+
 }

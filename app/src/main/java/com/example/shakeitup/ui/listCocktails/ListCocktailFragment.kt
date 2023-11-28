@@ -17,7 +17,9 @@ import com.google.android.material.progressindicator.CircularProgressIndicator
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
+private const val ARG_PARAM1 = "name"
+private const val ARG_PARAM2 = "type"
+
 
 /**
  * A simple [Fragment] subclass.
@@ -26,12 +28,14 @@ private const val ARG_PARAM1 = "param1"
  */
 class ListCocktailFragment : Fragment(), FragmentChangeListener {
     // TODO: Rename and change types of parameters
-    private var param1: String? = null
+    private var name: String? = null
+    private var type: Int? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
+            name = it.getString(ARG_PARAM1)
+            type = it.getInt(ARG_PARAM2)
         }
     }
 
@@ -53,10 +57,11 @@ class ListCocktailFragment : Fragment(), FragmentChangeListener {
          * @return A new instance of fragment ListCocktailFragment.
          */
         @JvmStatic
-        fun newInstance(param1: String) =
+        fun newInstance(name: String, type: Int) =
             ListCocktailFragment().apply {
                 arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
+                    putString(ARG_PARAM1, name)
+                    putInt(ARG_PARAM2, type)
                 }
             }
     }
@@ -65,7 +70,7 @@ class ListCocktailFragment : Fragment(), FragmentChangeListener {
         super.onViewCreated(view, savedInstanceState)
 
         var text : TextView = view.findViewById(R.id.cocktails_category)
-        text.text = param1
+        text.text = name
         val recyclerView: RecyclerView =view.findViewById(R.id.recycler_view_categories)
         val progressIndicator: CircularProgressIndicator = view.findViewById(R.id.progress_indicator)
 
@@ -89,13 +94,19 @@ class ListCocktailFragment : Fragment(), FragmentChangeListener {
                     .setMessage("Unable to load the categories")
                     .setPositiveButton("Reload") { dialog, which ->
 
-                        CocktailsFetcher.fetchCocktails(text.text.toString(), { cocktails -> success(cocktails )},{error()})
+                        type?.let {
+                            CocktailsFetcher.fetchCocktails(text.text.toString(),
+                                it, { cocktails -> success(cocktails )},{error()})
+                        }
                     }
                     .show()
             }
         }
 
-        CocktailsFetcher.fetchCocktails(text.text.toString(), { cocktails -> success(cocktails )},{error()})
+        type?.let {
+            CocktailsFetcher.fetchCocktails(text.text.toString(),
+                it,  { cocktails -> success(cocktails )},{error()})
+        }
 
 
 

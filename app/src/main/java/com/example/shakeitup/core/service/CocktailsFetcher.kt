@@ -17,10 +17,19 @@ import java.net.URL
 
 class CocktailsFetcher {
     companion object {
-        fun fetchCocktails(name: String, success: (ArrayList<Cocktail>) -> Unit, failure: () -> Unit) {
+        //Type 0 is for categories research
+        //Type 1 for ingredients research
+        fun fetchCocktails(name: String, type: Int, success: (ArrayList<Cocktail>) -> Unit, failure: () -> Unit) {
 
             val client = OkHttpClient()
-            val url = URL("https://www.thecocktaildb.com/api/json/v1/1/filter.php?c="+name)
+            var url : URL
+            if (type == 0){
+                url = URL("https://www.thecocktaildb.com/api/json/v1/1/filter.php?c="+name)
+            }
+            else {
+                url = URL("https://www.thecocktaildb.com/api/json/v1/1/filter.php?i="+name)
+            }
+
             val request = Request.Builder().url(url).build()
             // Request
             client
