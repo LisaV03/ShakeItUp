@@ -1,13 +1,14 @@
 package com.example.shakeitup.ui.ingredients
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.Adapter
 import com.example.shakeitup.R
 
-class IngredientAdapter(private val ingredients: List<String>) : RecyclerView.Adapter<IngredientViewHolder>() {
+class IngredientAdapter(val ingredients: ArrayList<String>) : Adapter<IngredientViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): IngredientViewHolder {
         val view: View =

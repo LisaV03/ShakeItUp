@@ -29,6 +29,7 @@
             android:textSize="15sp"
             android:id="@+id/ingredientTextView"
             android:layout_margin="10sp"
+            android:text="test"
             />
 
     </com.google.android.material.card.MaterialCardView>
