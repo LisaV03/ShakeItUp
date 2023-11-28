@@ -5,7 +5,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.SearchView
+import androidx.recyclerview.widget.RecyclerView
 import com.example.shakeitup.R
+import com.example.shakeitup.ui.categories.CategoriesAdapter
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -19,12 +22,25 @@ import com.example.shakeitup.R
  */
 class SearchFragment : Fragment() {
 
+    private lateinit var searchView: SearchView
+    private lateinit var searchResultsRecyclerView: RecyclerView
+    private lateinit var adapter: CategoriesAdapter
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_search, container, false)
+        val view = inflater.inflate(R.layout.fragment_search, container, false)
+//        searchResultsRecyclerView = view.findViewById(R.id.)
+        return view
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val searchView : SearchView = view.findViewById(R.id.search_view)
+//        searchView.setOnQueryTextListener()
     }
 
     companion object {
@@ -38,12 +54,6 @@ class SearchFragment : Fragment() {
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
-        fun newInstance() = //param1: String, param2: String) =
-            SearchFragment()//.apply {
-              //  arguments = Bundle().apply {
-                //    putString(ARG_PARAM1, param1)
-                  //  putString(ARG_PARAM2, param2)
-              //  }
-            //}
+        fun newInstance() = SearchFragment()
     }
 }
