@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal">
 
     <com.google.android.material.card.MaterialCardView
-        android:layout_width="200sp"
-        android:layout_height="100sp"
+        android:layout_width="match_parent"
+        android:layout_height="50sp"
         android:layout_marginTop="10sp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -16,15 +16,29 @@
         android:layout_margin="10sp"
         android:id="@+id/card_ingredient">
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <ImageView
+            android:layout_width="50sp"
+            android:layout_height="50sp"
+            android:src="@mipmap/cocktail"
+            android:id="@+id/image_ingredient"
+            android:layout_margin="5sp"
+
+            />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="15sp"
             android:id="@+id/ingredientTextView"
-            android:layout_margin="10sp"
-            android:text="test"
+            android:layout_centerVertical="true"
+            android:text=""
+            android:layout_toRightOf="@id/image_ingredient"
             />
+        </RelativeLayout>
 
     </com.google.android.material.card.MaterialCardView>
 
