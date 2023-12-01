@@ -15,6 +15,16 @@
         android:textSize="24sp"
         />
 
+    <ImageView
+        android:layout_width="150sp"
+        android:layout_height="150sp"
+        android:src="@mipmap/cocktail"
+        android:id="@+id/cockatil_image"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="5sp"
+        android:layout_below="@id/cocktail_name"
+        />
+
     <com.google.android.material.progressindicator.CircularProgressIndicator
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -26,7 +36,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/cocktail_name"
+        android:layout_below="@id/cockatil_image"
         android:id="@+id/cocktail_detail">
 
     <com.google.android.material.divider.MaterialDivider

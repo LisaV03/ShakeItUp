@@ -12,16 +12,24 @@ import com.google.android.material.card.MaterialCardView
 class CategoriesViewHolder(itemView: View, private val fragmentChangeListener: FragmentChangeListener) :
     RecyclerView.ViewHolder(itemView) {
 
-    val textView: TextView
-    val cardView: MaterialCardView
+    val text1: TextView
+    val card1: MaterialCardView
+    val text2: TextView
+    val card2: MaterialCardView
 
     init {
 
-        textView = itemView.findViewById(R.id.category_text)
-        cardView = itemView.findViewById(R.id.category_card)
+        text1 = itemView.findViewById(R.id.category_text)
+        card1 = itemView.findViewById(R.id.category_card)
+        text2 = itemView.findViewById(R.id.category2_text)
+        card2 = itemView.findViewById(R.id.category2_card)
 
-        cardView.setOnClickListener {
-            fragmentChangeListener.onFragmentChange(ListCocktailFragment.newInstance(textView.text.toString(), 0))
+        card1.setOnClickListener {
+            fragmentChangeListener.onFragmentChange(ListCocktailFragment.newInstance(text1.text.toString(), 0))
+        }
+
+        card2.setOnClickListener {
+            fragmentChangeListener.onFragmentChange(ListCocktailFragment.newInstance(text2.text.toString(), 0))
         }
 
         }
