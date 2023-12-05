@@ -1,19 +1,23 @@
 package com.example.shakeitup.ui.search
 
+import android.content.Context
 import android.os.Bundle
+import android.util.Log
+import android.view.KeyEvent
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.widget.SearchView
+import android.view.inputmethod.InputMethodManager
+import androidx.core.content.ContextCompat.getSystemService
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.shakeitup.R
-import com.example.shakeitup.ui.categories.CategoriesAdapter
-
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-//private const val ARG_PARAM1 = "param1"
-//private const val ARG_PARAM2 = "param2"
+import com.example.shakeitup.core.model.Cocktail
+import com.example.shakeitup.core.service.CocktailsFetcher
+import com.google.android.material.divider.MaterialDividerItemDecoration
+import com.google.android.material.search.SearchBar
+import com.google.android.material.search.SearchView
 
 /**
  * A simple [Fragment] subclass.
@@ -23,24 +27,36 @@ import com.example.shakeitup.ui.categories.CategoriesAdapter
 class SearchFragment : Fragment() {
 
     private lateinit var searchView: SearchView
-    private lateinit var searchResultsRecyclerView: RecyclerView
-    private lateinit var adapter: CategoriesAdapter
+    private lateinit var searchBar: SearchBar
+    private lateinit var data : List<Cocktail>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_search, container, false)
-//        searchResultsRecyclerView = view.findViewById(R.id.)
-        return view
+        data = CocktailsFetcher().loadCocktails()
+        return inflater.inflate(R.layout.fragment_search, container, false)
     }
+
+    private fun handleKeyEvent(view: View, keyCode: Int): Boolean {
+        if (keyCode == KeyEvent.KEYCODE_ENTER) {
+            // Hide the keyboard
+            Log.i("Search", "My key $keyCode")
+            return true
+        }
+        return false
+    }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val searchView : SearchView = view.findViewById(R.id.search_view)
-//        searchView.setOnQueryTextListener()
+        val recyclerView: RecyclerView = view.findViewById(R.id.recycler_view_cocktails)
+        Log.i("Test", "My data $data")
+        val divider = MaterialDividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL /*or LinearLayoutManager.HORIZONTAL*/)
+        recyclerView.addItemDecoration(divider)
+        recyclerView.adapter = context?.let { CocktailAdapter(it, data) }
+
     }
 
     companion object {
