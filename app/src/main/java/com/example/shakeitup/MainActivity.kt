@@ -31,6 +31,7 @@ class MainActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener {
         supportFragmentManager
             .beginTransaction()
             .replace(R.id.fragment_container_view, CategoriesFragment.newInstance())
+            .addToBackStack("")
             .commit()
     }
 
@@ -38,6 +39,7 @@ class MainActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener {
         supportFragmentManager
             .beginTransaction()
             .replace(R.id.fragment_container_view, SearchFragment.newInstance())
+            .addToBackStack("")
             .commit()
     }
 
@@ -45,7 +47,9 @@ class MainActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener {
         supportFragmentManager
             .beginTransaction()
             .replace(R.id.fragment_container_view, IngredientsFragment.newInstance())
+            .addToBackStack("")
             .commit()
+
     }
 
     override fun onTabSelected(tab: TabLayout.Tab?) {

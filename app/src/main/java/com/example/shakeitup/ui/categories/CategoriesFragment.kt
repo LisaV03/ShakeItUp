@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.shakeitup.R
@@ -50,7 +49,7 @@ class CategoriesFragment : Fragment(), FragmentChangeListener {
 
         fun success(categories : ArrayList<Categories>) {
             requireActivity().runOnUiThread {
-                val categoriesAdapter = CategoriesAdapter(this, categories)
+                val categoriesAdapter = context?.let { CategoriesAdapter(this, categories, it) }
 
                 recyclerView.layoutManager = LinearLayoutManager(context)
                 recyclerView.adapter = categoriesAdapter
@@ -75,10 +74,11 @@ class CategoriesFragment : Fragment(), FragmentChangeListener {
 
     }
 
+
     override fun onFragmentChange(newFragment: Fragment) {
         requireActivity().supportFragmentManager.beginTransaction()
             .replace(R.id.fragment_container_view, newFragment)
-            .addToBackStack(null)
+            .addToBackStack("")
             .commit()
     }
 

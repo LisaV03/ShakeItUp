@@ -5,3 +5,5 @@
 5. Display the list of ingredients
 6. Create the link between ingredients and cocktail recipes
 7. Add ImageView in fragment/layout
+8. Add new Design of Categories
+9. Remove the bug on some fragment changes

@@ -115,7 +115,7 @@ class ListCocktailFragment : Fragment(), FragmentChangeListener {
     override fun onFragmentChange(newFragment: Fragment) {
         requireActivity().supportFragmentManager.beginTransaction()
             .replace(R.id.fragment_container_view, newFragment)
-            .addToBackStack(null)
+            .addToBackStack("")
             .commit()
     }
 }

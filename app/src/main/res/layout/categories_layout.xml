@@ -20,12 +20,14 @@
             android:layout_height="match_parent">
 
         <ImageView
-            android:layout_width="120sp"
-            android:layout_height="120sp"
+            android:layout_width="130sp"
+            android:layout_height="130sp"
             android:layout_centerHorizontal="true"
             android:src="@mipmap/cocktail"
             android:id="@+id/category_image"
-            android:layout_margin="10sp"
+            android:layout_marginBottom="5sp"
+            android:layout_marginRight="10sp"
+            android:layout_marginLeft="10sp"
 
             />
 
@@ -57,12 +59,14 @@
             android:layout_height="match_parent">
 
         <ImageView
-            android:layout_width="120sp"
-            android:layout_height="120sp"
+            android:layout_width="130sp"
+            android:layout_height="130sp"
             android:layout_centerHorizontal="true"
             android:src="@mipmap/cocktail"
             android:id="@+id/category2_image"
-            android:layout_margin="10sp"
+            android:layout_marginRight="10sp"
+            android:layout_marginLeft="10sp"
+            android:layout_marginBottom="5sp"
                         />
 
         <TextView
