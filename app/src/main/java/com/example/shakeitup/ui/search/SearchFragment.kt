@@ -1,6 +1,5 @@
 package com.example.shakeitup.ui.search
 
-import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.KeyEvent
@@ -8,17 +7,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.InputMethodManager
-import androidx.core.content.ContextCompat.getSystemService
+import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.shakeitup.R
 import com.example.shakeitup.core.model.Cocktail
 import com.example.shakeitup.core.service.CocktailsFetcher
 import com.google.android.material.divider.MaterialDividerItemDecoration
-import com.google.android.material.search.SearchBar
-import com.google.android.material.search.SearchView
-
 /**
  * A simple [Fragment] subclass.
  * Use the [SearchFragment.newInstance] factory method to
@@ -27,7 +22,6 @@ import com.google.android.material.search.SearchView
 class SearchFragment : Fragment() {
 
     private lateinit var searchView: SearchView
-    private lateinit var searchBar: SearchBar
     private lateinit var data : List<Cocktail>
 
     override fun onCreateView(
@@ -55,7 +49,23 @@ class SearchFragment : Fragment() {
         Log.i("Test", "My data $data")
         val divider = MaterialDividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL /*or LinearLayoutManager.HORIZONTAL*/)
         recyclerView.addItemDecoration(divider)
-        recyclerView.adapter = context?.let { CocktailAdapter(it, data) }
+        var cocktailAdapter =  context?.let { CocktailAdapter(it, data) }
+        recyclerView.adapter = cocktailAdapter
+
+        searchView = view.findViewById(R.id.search_view)
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                Log.i("Search", "Final query: $query")
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                Log.i("Search", "This is the tmp query $newText")
+                cocktailAdapter?.filter?.filter(newText)
+                return true
+            }
+
+        })
 
     }
 
