@@ -1,8 +1,6 @@
 package com.example.shakeitup.core.service
 
 import android.util.Log
-import com.example.shakeitup.core.model.Categories
-import com.example.shakeitup.core.model.CategoryResponse
 import com.example.shakeitup.core.model.Cocktail
 import com.example.shakeitup.core.model.CocktailsResponse
 import com.google.gson.Gson
@@ -25,7 +23,9 @@ class CocktailsFetcher {
             var url : URL
             if (type == 0){
                 url = URL("https://www.thecocktaildb.com/api/json/v1/1/filter.php?c="+name)
-            }
+            }/*else if(type == -1){
+                url = URL("https://www.thecocktaildb.com/api/json/v1/1/search.php?f=a")
+            }*/
             else {
                 url = URL("https://www.thecocktaildb.com/api/json/v1/1/filter.php?i="+name)
             }
@@ -60,6 +60,40 @@ class CocktailsFetcher {
                     }
 
                     
+                })
+        }
+
+        fun loadCocktails(callback: (List<Cocktail>) -> Unit) {
+            val client = OkHttpClient()
+            var url : URL = URL("https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=shake")
+            val request = Request.Builder().url(url).build()
+            var listCocktails : List<Cocktail> =  emptyList()
+
+            client
+                .newCall(request)
+                .enqueue(object : Callback {
+                    override fun onFailure(call: Call, e: IOException) {
+                        Log.i("OKHTTP", "OnFailure: ${e.localizedMessage}")
+//                        failure()
+                    }
+
+                    override fun onResponse(call: Call, response: Response) {
+                        Log.i("OKHTTP", "OnSuccess")
+                        if (response.isSuccessful) {
+                            val responseBody = response.body?.string()
+                            Log.i("OKHTTP", responseBody ?: "Empty")
+
+                            // Deserialize the category in an List of Categories
+                            val gson = Gson()
+                            val cocktailResponseType = object : TypeToken<CocktailsResponse>() {}.type
+                            val cocktailResponse: CocktailsResponse = gson.fromJson(responseBody, cocktailResponseType)
+                            val cocktailList: List<Cocktail> = cocktailResponse.drinks
+                            callback(cocktailList)
+
+                        }
+                    }
+
+
                 })
         }
     }
