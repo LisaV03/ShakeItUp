@@ -43,6 +43,8 @@ dependencies {
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation("com.squareup.okhttp3:okhttp:4.9.3")
     implementation("com.google.code.gson:gson:2.8.9")
+    implementation("com.squareup.picasso:picasso:2.71828")
+
 
 
     testImplementation("junit:junit:4.13.2")

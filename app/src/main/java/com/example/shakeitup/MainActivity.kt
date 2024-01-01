@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import com.example.shakeitup.core.Utils.FragmentChangeListener
 import com.example.shakeitup.ui.categories.CategoriesFragment
 import com.example.shakeitup.ui.ingredients.IngredientsFragment
+import com.example.shakeitup.ui.random.RandomFragment
 import com.example.shakeitup.ui.search.SearchFragment
 import com.google.android.material.tabs.TabLayout
 
@@ -21,32 +22,13 @@ class MainActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener {
         tabLayout = findViewById(R.id.tab_layout)
         tabLayout.addOnTabSelectedListener(this)
 
-        displaySearchFragment()
-        //display first fragment
-        //val categoriesFragment = CategoriesFragment()
-        //supportFragmentManager.beginTransaction().replace(R.id.fragment_category, CategoriesFragment.newInstance()).commit()
+        displayFragment(SearchFragment.newInstance())
     }
 
-    fun displayCategoriesFragment(){
+    fun displayFragment(fragment : Fragment){
         supportFragmentManager
             .beginTransaction()
-            .replace(R.id.fragment_container_view, CategoriesFragment.newInstance())
-            .addToBackStack("")
-            .commit()
-    }
-
-    fun displaySearchFragment(){
-        supportFragmentManager
-            .beginTransaction()
-            .replace(R.id.fragment_container_view, SearchFragment.newInstance())
-            .addToBackStack("")
-            .commit()
-    }
-
-    fun displayIngredientsFragment(){
-        supportFragmentManager
-            .beginTransaction()
-            .replace(R.id.fragment_container_view, IngredientsFragment.newInstance())
+            .replace(R.id.fragment_container_view, fragment)
             .addToBackStack("")
             .commit()
 
@@ -56,9 +38,10 @@ class MainActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener {
         Log.i("Tab", "onTabSelected");
         tab?.let {
             when (tab.position) { // comme un switch case
-                0 -> displaySearchFragment()
-                1 -> displayCategoriesFragment()
-                2 -> displayIngredientsFragment()
+                0 -> displayFragment(SearchFragment.newInstance())
+                1 -> displayFragment(CategoriesFragment.newInstance())
+                2 -> displayFragment(IngredientsFragment.newInstance())
+                3 -> displayFragment(RandomFragment.newInstance())
             }
         }
     }
