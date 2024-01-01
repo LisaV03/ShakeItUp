@@ -104,7 +104,6 @@ class CocktailDetailFragment : Fragment() {
                 progressIndicator.visibility = View.GONE
                 details.visibility = View.VISIBLE
 
-
             }
 
 
