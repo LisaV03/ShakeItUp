@@ -7,3 +7,5 @@
 7. Add ImageView in fragment/layout
 8. Add new Design of Categories
 9. Remove the bug on some fragment changes
+10. Add the possibility to shake the phone and get a random cocktail
+11. Add the possibility to add ingredients of a cocktail in a shopping list
