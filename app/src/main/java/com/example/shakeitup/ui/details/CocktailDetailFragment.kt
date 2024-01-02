@@ -1,5 +1,6 @@
 package com.example.shakeitup.ui.details
 
+import android.content.Context
 import android.os.Bundle
 import android.os.NetworkOnMainThreadException
 import android.util.Log
@@ -7,6 +8,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.RelativeLayout
 import android.widget.TextView
@@ -15,9 +17,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.shakeitup.R
 import com.example.shakeitup.core.model.Cocktail
 import com.example.shakeitup.core.model.CocktailDetail
+import com.example.shakeitup.core.model.ListIngredients
 import com.example.shakeitup.core.service.CocktailDetailFetcher
 import com.example.shakeitup.ui.categories.CategoriesAdapter
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.snackbar.Snackbar
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -79,6 +85,8 @@ class CocktailDetailFragment : Fragment() {
 
 
 
+
+
         fun success(cocktailDetail: CocktailDetail) {
 
             requireActivity().runOnUiThread {
@@ -87,8 +95,9 @@ class CocktailDetailFragment : Fragment() {
 
                 val details : RelativeLayout = view.findViewById(R.id.cocktail_detail)
                 val recyclerView: RecyclerView = view.findViewById(R.id.recycler_view_ingredient)
-                val listIngredients : HashMap<String, String> = cocktailDetail.getIngredientsMap()
-                val listIngredientsAdapter = ListIngredientsAdapter(listIngredients)
+                val listIngredientsNew : ListIngredients = cocktailDetail.getIngredientsMap()
+
+                val listIngredientsAdapter = ListIngredientsAdapter(listIngredientsNew)
                 recyclerView.layoutManager = LinearLayoutManager(context)
                 recyclerView.adapter = listIngredientsAdapter
 
@@ -104,6 +113,26 @@ class CocktailDetailFragment : Fragment() {
                 progressIndicator.visibility = View.GONE
                 details.visibility = View.VISIBLE
 
+                var button: Button = view.findViewById(R.id.button_shopping)
+                button.setOnClickListener {
+                    val sharedPref = activity?.getPreferences(Context.MODE_PRIVATE)
+                    val gson = Gson()
+                    var listIngredientsGson = gson.toJson(listIngredientsNew)
+                    if (sharedPref != null){
+                        val listIngredientsString = sharedPref.getString("list_shopping", "")
+                        if (!listIngredientsString.isNullOrEmpty()) {
+                            val type = object : TypeToken<ListIngredients>() {}.type
+                            val listIngredients = gson.fromJson<ListIngredients>(listIngredientsString, type)
+                            listIngredients.mergeIngredients(listIngredientsNew)
+                            listIngredientsGson = gson.toJson(listIngredients)
+                        }
+                        val editor = sharedPref.edit()
+                        editor.putString("list_shopping", listIngredientsGson)
+                        editor.apply()
+                        val snackbar = Snackbar.make(it, "Ingredients added to the Shopping list", Snackbar.LENGTH_SHORT)
+                        snackbar.show()
+                    }
+                }
             }
 
 

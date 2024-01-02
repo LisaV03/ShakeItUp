@@ -2,10 +2,9 @@ package com.example.shakeitup
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.service.voice.VoiceInteractionSession.ActivityId
 import android.util.Log
 import androidx.fragment.app.Fragment
-import com.example.shakeitup.core.Utils.FragmentChangeListener
+import com.example.shakeitup.ui.shoppingList.ShoppingListFragment
 import com.example.shakeitup.ui.categories.CategoriesFragment
 import com.example.shakeitup.ui.ingredients.IngredientsFragment
 import com.example.shakeitup.ui.random.RandomFragment
@@ -21,8 +20,10 @@ class MainActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener {
 
         tabLayout = findViewById(R.id.tab_layout)
         tabLayout.addOnTabSelectedListener(this)
+        tabLayout.getTabAt(2)?.select()
 
-        displayFragment(SearchFragment.newInstance())
+
+        displayFragment(RandomFragment.newInstance())
     }
 
     fun displayFragment(fragment : Fragment){
@@ -40,8 +41,9 @@ class MainActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener {
             when (tab.position) { // comme un switch case
                 0 -> displayFragment(SearchFragment.newInstance())
                 1 -> displayFragment(CategoriesFragment.newInstance())
-                2 -> displayFragment(IngredientsFragment.newInstance())
-                3 -> displayFragment(RandomFragment.newInstance())
+                2 -> displayFragment(RandomFragment.newInstance())
+                3 -> displayFragment(IngredientsFragment.newInstance())
+                4 -> displayFragment(ShoppingListFragment.newInstance())
             }
         }
     }

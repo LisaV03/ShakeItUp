@@ -6,27 +6,24 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.shakeitup.R
 import com.example.shakeitup.core.Utils.FragmentChangeListener
+import com.example.shakeitup.core.model.ListIngredients
 
 
-class ListIngredientsAdapter (val ingredients: HashMap<String, String>) : RecyclerView.Adapter<ListIngredientsViewHolder>() {
+class ListIngredientsAdapter (val ingredients: ListIngredients) : RecyclerView.Adapter<ListIngredientsViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListIngredientsViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.list_ingredients_layout, parent, false)
         return ListIngredientsViewHolder(itemView)
     }
 
     override fun getItemCount(): Int {
-        Log.i("INGREDIENTS", ingredients.size.toString())
-        return ingredients.size
+        return ingredients.getlistIngredients().size
 
     }
 
     override fun onBindViewHolder(holder: ListIngredientsViewHolder, position: Int) {
-        val keys : List<String> = ingredients.keys.toList()
+        val keys : List<String> = ingredients.getlistIngredients().keys.toList()
         holder.ingredient.text = keys[position]
-        holder.measure.text = ingredients.get(keys[position])
-
-        Log.i("INGREDIENTS", keys[position])
-        ingredients.get(keys[position])?.let { Log.i("INGREDIENTS", it) }
+        holder.measure.text = ingredients.getlistIngredients().get(keys[position])
     }
 
 

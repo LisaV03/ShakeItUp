@@ -7,13 +7,16 @@
     tools:context=".ui.details.CocktailDetailFragment"
     android:orientation="horizontal">
 
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text=""
         android:id="@+id/cocktail_name"
-        android:textSize="24sp"
+        android:textSize="20sp"
         />
+
+
 
     <ImageView
         android:layout_width="150sp"
@@ -131,7 +134,16 @@
         android:layout_height="wrap_content"
         android:text=""
         android:id="@+id/cocktail_instructions"
-        android:layout_below="@id/text_instructions"/>
+        android:layout_below="@id/text_instructions"
+        android:layout_marginBottom="10sp"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add to shopping list"
+            android:id="@+id/button_shopping"
+            android:layout_below="@id/cocktail_instructions"
+            android:layout_centerHorizontal="true" />
 
     </RelativeLayout>
 

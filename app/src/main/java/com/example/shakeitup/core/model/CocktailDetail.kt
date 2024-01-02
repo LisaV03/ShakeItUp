@@ -1,5 +1,6 @@
 package com.example.shakeitup.core.model
 
+import android.util.Log
 import com.google.gson.annotations.SerializedName
 
 
@@ -183,7 +184,7 @@ class CocktailDetail(id: Int, name: String, drinkAlternate : String, tags : Stri
         return instructions
     }
 
-    fun  getIngredientsMap() : HashMap<String, String> {
+    fun  getIngredientsMap() : ListIngredients {
         var ingredients : HashMap<String, String> = HashMap<String, String>()
         var listIngredients : ArrayList<String> = arrayListOf(i1, i2, i3, i4, i5, i6, i7, i8, i9, i10, i11, i12, i13, i14, i15)
         var listMeasures : ArrayList<String> = arrayListOf(m1, m2, m3, m4, m5, m6, m7, m8, m9, m10, m11, m12, m13, m14, m15)
@@ -194,7 +195,9 @@ class CocktailDetail(id: Int, name: String, drinkAlternate : String, tags : Stri
 
             }
         }
-        return ingredients
+        Log.i("SHOPPING", "10")
+
+        return ListIngredients(ingredients)
     }
 
 
