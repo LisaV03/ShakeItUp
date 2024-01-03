@@ -61,13 +61,15 @@ class RandomFragment : Fragment(), SensorEventListener, FragmentChangeListener {
             val cardRandom : CardView = view.findViewById(R.id.cocktail_random)
             val textCocktail : TextView = view.findViewById(R.id.cocktail_random_text)
             val imageCocktail : ImageView = view.findViewById(R.id.cocktail_random_image)
+
             cardRandom.visibility = View.VISIBLE
+            shakeText.visibility = View.GONE
+
             textCocktail.text = cocktailDetail.name
             Picasso.get().load(cocktailDetail.drinkThumb).into(imageCocktail)
 
             cardRandom.setOnClickListener {
                 onFragmentChange(CocktailDetailFragment.newInstance(
-                    //CHANGE THIS BECAUSE IT IMPLIES AN UNECESSARY CALL TO THE DATABASE
                     Cocktail(cocktailDetail.name, cocktailDetail.drinkThumb, cocktailDetail.id)
                 ))
             }
@@ -77,7 +79,7 @@ class RandomFragment : Fragment(), SensorEventListener, FragmentChangeListener {
     fun error() {
         requireActivity().runOnUiThread {
             MaterialAlertDialogBuilder(requireContext())
-                .setMessage("Unable to load the categories")
+                .setMessage("No Internet connection available")
                 .setPositiveButton("Reload") { dialog, which ->
 
                     RandomCocktailFetcher.fetchRandomCocktail({ cocktailDetail -> view?.let {
@@ -114,7 +116,6 @@ class RandomFragment : Fragment(), SensorEventListener, FragmentChangeListener {
                     )
                 } },{error()})
 
-                // Réinitialiser la variable shakeDetected après 100 ms
                 Handler(Looper.getMainLooper()).postDelayed({
                     shakeDetected = false
                 }, 500)
@@ -136,11 +137,6 @@ class RandomFragment : Fragment(), SensorEventListener, FragmentChangeListener {
     }
 
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters
-         * @return A new instance of fragment RandomFragment.
-         */
         @JvmStatic
         fun newInstance() =
             RandomFragment()
@@ -152,7 +148,6 @@ class RandomFragment : Fragment(), SensorEventListener, FragmentChangeListener {
 
         val shakeText: TextView =view.findViewById(R.id.shake_text)
         val cardRandom : CardView = view.findViewById(R.id.cocktail_random)
-        //val progressIndicator: CircularProgressIndicator = view.findViewById(R.id.progress_indicator)
 
         shakeText.visibility = View.VISIBLE
         cardRandom.visibility = View.GONE
@@ -163,10 +158,9 @@ class RandomFragment : Fragment(), SensorEventListener, FragmentChangeListener {
     override fun onFragmentChange(newFragment: Fragment) {
         requireActivity().supportFragmentManager.beginTransaction()
             .replace(R.id.fragment_container_view, newFragment)
-            .addToBackStack("")
+            .addToBackStack("RandomFragment")
             .commit()
     }
-
     }
 
 

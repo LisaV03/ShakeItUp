@@ -20,14 +20,14 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-        <ImageView
-            android:layout_width="50sp"
-            android:layout_height="50sp"
-            android:src="@mipmap/cocktail"
-            android:id="@+id/image_ingredient"
-            android:layout_margin="5sp"
+            <ImageView
+                android:layout_width="40sp"
+                android:layout_height="40sp"
+                android:id="@+id/ingredientImageView"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10sp"
+                />
 
-            />
 
         <TextView
             android:layout_width="wrap_content"
@@ -36,8 +36,13 @@
             android:id="@+id/ingredientTextView"
             android:layout_centerVertical="true"
             android:text=""
-            android:layout_toRightOf="@id/image_ingredient"
+            android:layout_marginLeft="10sp"
+            android:layout_toEndOf="@id/ingredientImageView"
             />
+
+
+
+
         </RelativeLayout>
 
     </com.google.android.material.card.MaterialCardView>

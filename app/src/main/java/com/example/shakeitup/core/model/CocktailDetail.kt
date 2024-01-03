@@ -172,6 +172,7 @@ class CocktailDetail(id: Int, name: String, drinkAlternate : String, tags : Stri
 
 
 
+    //Create a Hashmap with a language and the instructions in the corresponding language
     fun  getInstructionsMap() : HashMap<String, String> {
         var instructions : HashMap<String, String> = HashMap<String, String>()
         instructions.put("en", instructionEN)
@@ -184,6 +185,7 @@ class CocktailDetail(id: Int, name: String, drinkAlternate : String, tags : Stri
         return instructions
     }
 
+    //Create a Hashmap with an ingredient and its quantity
     fun  getIngredientsMap() : ListIngredients {
         var ingredients : HashMap<String, String> = HashMap<String, String>()
         var listIngredients : ArrayList<String> = arrayListOf(i1, i2, i3, i4, i5, i6, i7, i8, i9, i10, i11, i12, i13, i14, i15)
@@ -192,11 +194,8 @@ class CocktailDetail(id: Int, name: String, drinkAlternate : String, tags : Stri
         for (i in 0..listIngredients.size-1) {
             if (listIngredients[i] != null) {
                 ingredients.put(listIngredients[i], listMeasures[i])
-
             }
         }
-        Log.i("SHOPPING", "10")
-
         return ListIngredients(ingredients)
     }
 

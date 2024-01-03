@@ -29,28 +29,28 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/search_tab"
-            android:text="Search"
+            android:icon="@drawable/loupe"
             />
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/category_tab"
-            android:text="Categories"
+            android:icon="@drawable/categorie"
             />
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/random_tab"
-            android:text="Random"
+            android:icon="@drawable/des"
             />
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/ingredient_tab"
-            android:text="Ingredients"
+            android:icon="@drawable/ingredient"
             />
 
 
@@ -59,7 +59,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/shopping_list"
-            android:text="Shopping"
+            android:icon="@drawable/caddie"
             />
 
     </com.google.android.material.tabs.TabLayout>

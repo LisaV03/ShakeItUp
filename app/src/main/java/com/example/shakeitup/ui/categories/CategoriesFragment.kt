@@ -14,24 +14,16 @@ import com.example.shakeitup.core.service.CategoriesFetcher
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.progressindicator.CircularProgressIndicator
 
-
-/**
- * A simple [Fragment] subclass.
- * Use the [CategoriesFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class CategoriesFragment : Fragment(), FragmentChangeListener {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_categories, container, false)
     }
 
     companion object {
-
         @JvmStatic
         fun newInstance()=
             CategoriesFragment()
@@ -39,6 +31,7 @@ class CategoriesFragment : Fragment(), FragmentChangeListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
 
         val recyclerView:RecyclerView=view.findViewById(R.id.recycler_view_categories)
         val progressIndicator: CircularProgressIndicator = view.findViewById(R.id.progress_indicator)
@@ -57,12 +50,12 @@ class CategoriesFragment : Fragment(), FragmentChangeListener {
                 progressIndicator.visibility = View.GONE
             }
         }
+
         fun error() {
             requireActivity().runOnUiThread {
                 MaterialAlertDialogBuilder(requireContext())
-                    .setMessage("Unable to load the categories")
+                    .setMessage("No Internet connection available")
                     .setPositiveButton("Reload") { dialog, which ->
-
                         CategoriesFetcher.fetchCategories({ categories -> success(categories)},{error()})
                     }
                     .show()
@@ -75,10 +68,11 @@ class CategoriesFragment : Fragment(), FragmentChangeListener {
     }
 
 
+    //Deal with the changes of fragment in a fragment
     override fun onFragmentChange(newFragment: Fragment) {
         requireActivity().supportFragmentManager.beginTransaction()
             .replace(R.id.fragment_container_view, newFragment)
-            .addToBackStack("")
+            .addToBackStack("CategoriesFragment")
             .commit()
     }
 

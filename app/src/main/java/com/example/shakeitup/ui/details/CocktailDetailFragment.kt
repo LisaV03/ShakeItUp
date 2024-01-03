@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.RelativeLayout
 import android.widget.TextView
@@ -24,16 +25,10 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import com.squareup.picasso.Picasso
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_COCKTAIL = "cocktail"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [CocktailDetailFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class CocktailDetailFragment : Fragment() {
     private var cocktail: Cocktail? = null
 
@@ -54,10 +49,7 @@ class CocktailDetailFragment : Fragment() {
 
     companion object {
         /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
+         * @param cocktail
          * @return A new instance of fragment CocktailDetailFragment.
          */
         @JvmStatic
@@ -74,12 +66,16 @@ class CocktailDetailFragment : Fragment() {
 
         var progressIndicator : ProgressBar = view.findViewById(R.id.progress_indicator)
         var details : RelativeLayout = view.findViewById(R.id.cocktail_detail)
+        var name: TextView = view.findViewById(R.id.cocktail_name)
+
+        name.text = cocktail?.name
+
         progressIndicator.visibility = View.VISIBLE
         details.visibility = View.GONE
         progressIndicator.isIndeterminate = true
 
-        var name: TextView = view.findViewById(R.id.cocktail_name)
-        name.text = cocktail?.name
+
+
 
 
 
@@ -94,8 +90,10 @@ class CocktailDetailFragment : Fragment() {
                 Log.i("COCKTAIL", cocktailDetail.id.toString())
 
                 val details : RelativeLayout = view.findViewById(R.id.cocktail_detail)
+                val image : ImageView = view.findViewById(R.id.cocktail_detail_image)
                 val recyclerView: RecyclerView = view.findViewById(R.id.recycler_view_ingredient)
                 val listIngredientsNew : ListIngredients = cocktailDetail.getIngredientsMap()
+                Picasso.get().load(cocktailDetail.drinkThumb).into(image)
 
                 val listIngredientsAdapter = ListIngredientsAdapter(listIngredientsNew)
                 recyclerView.layoutManager = LinearLayoutManager(context)
@@ -140,7 +138,7 @@ class CocktailDetailFragment : Fragment() {
         fun error() {
             requireActivity().runOnUiThread {
                 MaterialAlertDialogBuilder(requireContext())
-                    .setMessage("Unable to load the categories")
+                    .setMessage("No Internet connection available")
                     .setPositiveButton("Reload") { dialog, which ->
 
                         cocktail?.id?.let {

@@ -20,9 +20,10 @@ class CategoriesAdapter(private val fragmentChangeListener: FragmentChangeListen
     }
 
     override fun getItemCount(): Int {
-        return categories.size /2  + 1//Change with the number of categories
+        return categories.size /2  + 1
     }
 
+    //In the recyclerView, there are two categories on each line
     override fun onBindViewHolder(holder: CategoriesViewHolder, position: Int) {
         holder.text1.text = categories[position*2].name
         Log.i("Name", categories[position*2].name)
@@ -38,7 +39,6 @@ class CategoriesAdapter(private val fragmentChangeListener: FragmentChangeListen
     }
 
     fun getImageResource(name: String): Int{
-
         var imageName = name.replace(" / ", "_")
         imageName = imageName.replace(" ", "_")
         imageName = imageName.lowercase()

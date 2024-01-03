@@ -16,6 +16,7 @@ class CategoriesViewHolder(itemView: View, private val fragmentChangeListener: F
     val text1: TextView
     val card1: MaterialCardView
     val image1: ImageView
+
     val text2: TextView
     val card2: MaterialCardView
     val image2: ImageView
@@ -25,6 +26,7 @@ class CategoriesViewHolder(itemView: View, private val fragmentChangeListener: F
         text1 = itemView.findViewById(R.id.category_text)
         card1 = itemView.findViewById(R.id.category_card)
         image1 = itemView.findViewById(R.id.category_image)
+
         text2 = itemView.findViewById(R.id.category2_text)
         card2 = itemView.findViewById(R.id.category2_card)
         image2 = itemView.findViewById(R.id.category2_image)
@@ -38,13 +40,6 @@ class CategoriesViewHolder(itemView: View, private val fragmentChangeListener: F
         }
 
         }
-
-
-
-
-
-
-
 
 }
 

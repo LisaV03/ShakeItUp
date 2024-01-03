@@ -43,6 +43,7 @@ class IngredientsFragment : Fragment(), FragmentChangeListener {
                 val ingredientAdapter = IngredientAdapter(this, ingredients)
                 recyclerViewIngredients.layoutManager = LinearLayoutManager(context)
                 recyclerViewIngredients.adapter = ingredientAdapter
+
                 recyclerViewIngredients.visibility = View.VISIBLE
                 progressIndicator.visibility = View.GONE
             }
@@ -50,7 +51,7 @@ class IngredientsFragment : Fragment(), FragmentChangeListener {
         fun error() {
             requireActivity().runOnUiThread {
                 MaterialAlertDialogBuilder(requireContext())
-                    .setMessage("Unable to load the ingredients")
+                    .setMessage("No Internet connection available")
                     .setPositiveButton("Reload") { dialog, which ->
                         IngredientsFetcher.fetchIngredients({ ingredients -> success(ingredients)},{error()})
                     }
@@ -64,7 +65,7 @@ class IngredientsFragment : Fragment(), FragmentChangeListener {
     override fun onFragmentChange(newFragment: Fragment) {
         requireActivity().supportFragmentManager.beginTransaction()
             .replace(R.id.fragment_container_view, newFragment)
-            .addToBackStack("")
+            .addToBackStack("IngredientsFragment")
             .commit()
     }
 
