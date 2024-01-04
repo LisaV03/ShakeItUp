@@ -9,3 +9,4 @@
 9. Remove the bug on some fragment changes
 10. Add the possibility to shake the phone and get a random cocktail
 11. Add the possibility to add ingredients of a cocktail in a shopping list
+12. Change the icon of the app, improve the shoppingList system, imrpove the aesthetic of the app, improve logic in tab changes

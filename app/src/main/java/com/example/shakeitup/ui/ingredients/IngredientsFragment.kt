@@ -33,10 +33,10 @@ class IngredientsFragment : Fragment(), FragmentChangeListener {
     private fun initializeUI(view: View) {
         recyclerViewIngredients = view.findViewById(R.id.recycler_view_ingredient)
         progressIndicator = view.findViewById(R.id.progress_indicator)
-
         recyclerViewIngredients.visibility = View.GONE
         progressIndicator.visibility = View.VISIBLE
         progressIndicator.isIndeterminate = true
+
     }
 
     private fun fetchIngredients() {
@@ -65,7 +65,7 @@ class IngredientsFragment : Fragment(), FragmentChangeListener {
     override fun onFragmentChange(newFragment: Fragment) {
         requireActivity().supportFragmentManager.beginTransaction()
             .replace(R.id.fragment_container_view, newFragment)
-            .addToBackStack("")
+            .addToBackStack("IngredientsFragment")
             .commit()
     }
 

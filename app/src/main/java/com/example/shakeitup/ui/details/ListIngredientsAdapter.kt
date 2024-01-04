@@ -17,13 +17,12 @@ class ListIngredientsAdapter (val ingredients: ListIngredients) : RecyclerView.A
 
     override fun getItemCount(): Int {
         return ingredients.getlistIngredients().size
-
     }
 
     override fun onBindViewHolder(holder: ListIngredientsViewHolder, position: Int) {
         val keys : List<String> = ingredients.getlistIngredients().keys.toList()
         holder.ingredient.text = keys[position]
-        holder.measure.text = ingredients.getlistIngredients().get(keys[position])
+        holder.measure.text = (ingredients.getlistIngredients().get(keys[position]))
     }
 
 

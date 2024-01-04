@@ -23,9 +23,7 @@ class CocktailsFetcher {
             var url : URL
             if (type == 0){
                 url = URL("https://www.thecocktaildb.com/api/json/v1/1/filter.php?c="+name)
-            }/*else if(type == -1){
-                url = URL("https://www.thecocktaildb.com/api/json/v1/1/search.php?f=a")
-            }*/
+            }
             else {
                 url = URL("https://www.thecocktaildb.com/api/json/v1/1/filter.php?i="+name)
             }

@@ -32,7 +32,6 @@ class CategoriesFragment : Fragment(), FragmentChangeListener {
     private fun initializeUI(view: View) {
         recyclerView = view.findViewById(R.id.recycler_view_categories)
         progressIndicator = view.findViewById(R.id.progress_indicator)
-
         recyclerView.visibility = View.GONE
         progressIndicator.visibility = View.VISIBLE
         progressIndicator.isIndeterminate = true
@@ -60,10 +59,11 @@ class CategoriesFragment : Fragment(), FragmentChangeListener {
         }.show()
     }
 
+    //Deal with the changes of fragment in a fragment
     override fun onFragmentChange(newFragment: Fragment) {
         requireActivity().supportFragmentManager.beginTransaction()
             .replace(R.id.fragment_container_view, newFragment)
-            .addToBackStack("")
+            .addToBackStack("CategoriesFragment")
             .commit()
     }
 

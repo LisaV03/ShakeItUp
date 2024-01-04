@@ -21,9 +21,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Ingredients"
-            android:textSize="24sp"
+            android:textSize="30sp"
             android:id="@+id/title_ingredients"
             android:layout_margin="10sp"/>
+
+        <ImageView
+            android:layout_width="45sp"
+            android:layout_height="45sp"
+            android:src="@drawable/icon_title"
+            android:layout_margin="10sp"
+            android:layout_alignParentRight="true"/>
 
 
         <androidx.recyclerview.widget.RecyclerView

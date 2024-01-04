@@ -7,32 +7,49 @@
     android:orientation="horizontal">
 
     <TextView
+        android:id="@+id/title_shopping"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Shopping List"
-        android:textSize="24sp"
+        android:textSize="30sp"
+        android:layout_margin="10dp" />
+    <ImageView
+        android:layout_width="45sp"
+        android:layout_height="45sp"
+        android:src="@drawable/icon_title"
         android:layout_margin="10sp"
-        android:id="@+id/title_shopping"/>
+        android:layout_alignParentRight="true"/>
 
-    <androidx.recyclerview.widget.RecyclerView
+
+    <com.google.android.material.divider.MaterialDivider
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:id="@+id/line"
+        android:layout_below="@id/title_shopping"
+        android:layout_margin="10sp"/>
+
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view_shopping"
-        android:layout_below="@id/title_shopping"/>
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_below="@id/line"
+        android:layout_above="@+id/button_empty"
+        android:scrollbars="vertical" />
+
     <Button
+        android:id="@+id/button_empty"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/recycler_view_shopping"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:id="@+id/button_empty"
-        android:text="Empty list"/>
+        android:text="Empty list" />
 
     <TextView
+        android:id="@+id/text_empty"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/recycler_view_shopping"
         android:layout_centerHorizontal="true"
-        android:id="@+id/text_empty"
-        android:layout_marginTop="20sp"
-        android:text="Nothing to buy"/>
+        android:layout_marginTop="20dp"
+        android:text="Nothing to buy" />
 </RelativeLayout>
