@@ -2,6 +2,7 @@ package com.example.shakeitup.core.service
 
 import android.util.Log
 import com.example.shakeitup.core.model.Categories
+import com.example.shakeitup.core.model.Ingredients
 import com.google.gson.Gson
 import com.google.gson.JsonObject
 import okhttp3.Call
@@ -12,7 +13,7 @@ import okhttp3.Response
 import java.io.IOException
 import java.net.URL
 
-class IngredientsFetcher {
+/*class IngredientsFetcher {
     companion object {
 
         private const val BASE_URL = "https://www.thecocktaildb.com/api/json/v1/1/list.php?"
@@ -49,5 +50,12 @@ class IngredientsFetcher {
                     }
                 })
         }
+    }
+}*/
+
+
+class IngredientsFetcher : Fetcher() {
+    override fun getUrl(): String {
+        return "https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list"
     }
 }

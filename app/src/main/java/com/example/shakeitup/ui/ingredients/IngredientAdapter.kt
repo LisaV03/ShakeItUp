@@ -6,8 +6,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import com.example.shakeitup.R
 import com.example.shakeitup.core.Utils.FragmentChangeListener
+import com.example.shakeitup.core.model.Ingredients
 
-class IngredientAdapter(private val fragmentChangeListener: FragmentChangeListener, val ingredients: ArrayList<String>) : Adapter<IngredientViewHolder>() {
+class IngredientAdapter(private val fragmentChangeListener: FragmentChangeListener, val ingredients: ArrayList<Ingredients>) : Adapter<IngredientViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): IngredientViewHolder {
         val view: View =
@@ -16,7 +17,7 @@ class IngredientAdapter(private val fragmentChangeListener: FragmentChangeListen
     }
 
     override fun onBindViewHolder(holder: IngredientViewHolder, position: Int) {
-        val ingredient: String = ingredients[position]
+        val ingredient: String = ingredients[position].name
         holder.ingredientTextView.text = ingredient
     }
 
