@@ -14,66 +14,51 @@ import com.example.shakeitup.core.service.CategoriesFetcher
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.progressindicator.CircularProgressIndicator
 
-
-/**
- * A simple [Fragment] subclass.
- * Use the [CategoriesFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class CategoriesFragment : Fragment(), FragmentChangeListener {
+
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var progressIndicator: CircularProgressIndicator
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_categories, container, false)
+        val view = inflater.inflate(R.layout.fragment_categories, container, false)
+        initializeUI(view)
+        fetchCategories()
+        return view
     }
 
-    companion object {
-
-        @JvmStatic
-        fun newInstance()=
-            CategoriesFragment()
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        val recyclerView:RecyclerView=view.findViewById(R.id.recycler_view_categories)
-        val progressIndicator: CircularProgressIndicator = view.findViewById(R.id.progress_indicator)
+    private fun initializeUI(view: View) {
+        recyclerView = view.findViewById(R.id.recycler_view_categories)
+        progressIndicator = view.findViewById(R.id.progress_indicator)
 
         recyclerView.visibility = View.GONE
         progressIndicator.visibility = View.VISIBLE
         progressIndicator.isIndeterminate = true
-
-        fun success(categories : ArrayList<Categories>) {
-            requireActivity().runOnUiThread {
-                val categoriesAdapter = context?.let { CategoriesAdapter(this, categories, it) }
-
-                recyclerView.layoutManager = LinearLayoutManager(context)
-                recyclerView.adapter = categoriesAdapter
-                recyclerView.visibility = View.VISIBLE
-                progressIndicator.visibility = View.GONE
-            }
-        }
-        fun error() {
-            requireActivity().runOnUiThread {
-                MaterialAlertDialogBuilder(requireContext())
-                    .setMessage("Unable to load the categories")
-                    .setPositiveButton("Reload") { dialog, which ->
-
-                        CategoriesFetcher.fetchCategories({ categories -> success(categories)},{error()})
-                    }
-                    .show()
-            }
-        }
-
-        CategoriesFetcher.fetchCategories({ categories -> success(categories)},{error()})
-
-
     }
 
+    private fun fetchCategories() {
+        val categoriesFetcher = CategoriesFetcher()
+        categoriesFetcher.fetchData<Categories>(
+            success = { categories -> requireActivity().runOnUiThread {updateUI(categories)} },
+            failure = { requireActivity().runOnUiThread {showErrorDialog()} }
+        )
+    }
+
+    private fun updateUI(categories: ArrayList<Categories>) {
+        recyclerView.layoutManager = LinearLayoutManager(context)
+        recyclerView.adapter = context?.let { CategoriesAdapter(this, categories, it) }
+        recyclerView.visibility = View.VISIBLE
+        progressIndicator.visibility = View.GONE
+    }
+
+    private fun showErrorDialog() {
+        MaterialAlertDialogBuilder(requireContext()).apply {
+            setMessage("Unable to load the categories")
+            setPositiveButton("Reload") { _, _ -> fetchCategories() }
+        }.show()
+    }
 
     override fun onFragmentChange(newFragment: Fragment) {
         requireActivity().supportFragmentManager.beginTransaction()
@@ -82,6 +67,8 @@ class CategoriesFragment : Fragment(), FragmentChangeListener {
             .commit()
     }
 
-
-
+    companion object {
+        @JvmStatic
+        fun newInstance() = CategoriesFragment()
+    }
 }

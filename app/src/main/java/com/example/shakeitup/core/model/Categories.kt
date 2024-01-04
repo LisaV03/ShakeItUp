@@ -6,7 +6,3 @@ class Categories(name: String) {
     @SerializedName("strCategory")
     val name: String = name
 }
-
-class CategoryResponse(
-    @SerializedName("drinks") val drinks: List<Categories>
-)
