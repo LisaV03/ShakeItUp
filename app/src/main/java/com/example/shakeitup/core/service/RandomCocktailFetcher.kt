@@ -1,12 +1,9 @@
 package com.example.shakeitup.core.service
 
 import android.util.Log
-import com.example.shakeitup.core.model.Categories
-import com.example.shakeitup.core.model.CategoryResponse
 import com.example.shakeitup.core.model.CocktailDetail
 import com.example.shakeitup.core.model.CocktailDetailResponse
 import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
 import okhttp3.Call
 import okhttp3.Callback
 import okhttp3.OkHttpClient
