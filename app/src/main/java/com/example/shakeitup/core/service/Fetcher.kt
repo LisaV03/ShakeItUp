@@ -43,8 +43,7 @@ abstract class Fetcher {
         try {
             val response: ResponseWrapper<T> = gson.fromJson(responseBody, type)
             val resultList: List<T> = response.drinks
-            val test: ArrayList<T> = resultList as ArrayList<T>
-            success(test as ArrayList<T>)
+            success(resultList as ArrayList<T>)
         } catch (e: Exception) {
             Log.e("Fetcher", "Error parsing response: ${e.message}")
             failure()
