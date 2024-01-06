@@ -1,6 +1,7 @@
 package com.example.shakeitup.core.service
 
 import android.util.Log
+import com.example.shakeitup.core.model.Categories
 import com.example.shakeitup.core.model.Cocktail
 import com.example.shakeitup.core.model.CocktailsResponse
 import com.google.gson.Gson
@@ -61,38 +62,33 @@ class CocktailsFetcher {
                 })
         }
 
-        fun loadCocktails(callback: (List<Cocktail>) -> Unit) {
-            val client = OkHttpClient()
-            var url : URL = URL("https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=shake")
-            val request = Request.Builder().url(url).build()
-            var listCocktails : List<Cocktail> =  emptyList()
+        /*fun fetchAllCocktails(success: (ArrayList<Cocktail>) -> Unit, failure: () -> Unit) {
+            val categoriesFetcher = CategoriesFetcher()
+            categoriesFetcher.fetchData<Categories>(
+                success = { categories ->
+                    val allCocktails = mutableListOf<Cocktail>()
 
-            client
-                .newCall(request)
-                .enqueue(object : Callback {
-                    override fun onFailure(call: Call, e: IOException) {
-                        Log.i("OKHTTP", "OnFailure: ${e.localizedMessage}")
-//                        failure()
+                    for (category in categories) {
+                        fetchCocktails(
+                            category.name,
+                            0,
+                            success = { cocktails ->
+                                allCocktails.addAll(cocktails)
+                            },
+                            failure = {
+                                Log.e("OKHTTP","We've got a problem here ! - but we fetched the categories")
+                            }
+                        )
                     }
+                    success(allCocktails as ArrayList<Cocktail>)
+                },
+                failure = {
+                    // Handle failure for fetching categories
+                    Log.e("OKHTTP","We've got a when fetching the categories ...")
 
-                    override fun onResponse(call: Call, response: Response) {
-                        Log.i("OKHTTP", "OnSuccess")
-                        if (response.isSuccessful) {
-                            val responseBody = response.body?.string()
-                            Log.i("OKHTTP", responseBody ?: "Empty")
-
-                            // Deserialize the category in an List of Categories
-                            val gson = Gson()
-                            val cocktailResponseType = object : TypeToken<CocktailsResponse>() {}.type
-                            val cocktailResponse: CocktailsResponse = gson.fromJson(responseBody, cocktailResponseType)
-                            val cocktailList: List<Cocktail> = cocktailResponse.drinks
-                            callback(cocktailList)
-
-                        }
-                    }
-
-
-                })
-        }
+                    failure()
+                }
+            )
+        }*/
     }
 }

@@ -2,7 +2,6 @@ package com.example.shakeitup.ui.search
 
 import android.os.Bundle
 import android.util.Log
-import android.view.KeyEvent
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -11,72 +10,87 @@ import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.shakeitup.R
+import com.example.shakeitup.core.Utils.FragmentChangeListener
 import com.example.shakeitup.core.model.Cocktail
 import com.example.shakeitup.core.service.CocktailsFetcher
-import com.google.android.material.divider.MaterialDividerItemDecoration
-/**
- * A simple [Fragment] subclass.
- * Use the [SearchFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
-class SearchFragment : Fragment() {
+import com.example.shakeitup.ui.listCocktails.ListCocktailAdapter
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+
+class SearchFragment : Fragment(), FragmentChangeListener {
 
     private lateinit var searchView: SearchView
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var cocktailAdapter: ListCocktailAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
-        return inflater.inflate(R.layout.fragment_search, container, false)
+        val view = inflater.inflate(R.layout.fragment_search, container, false)
+        initializeUI(view)
+        setupSearchView()
+        fetchCocktails()
+        return view
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    private fun initializeUI(view: View) {
+        searchView = view.findViewById(R.id.search_view)
 
-        CocktailsFetcher.loadCocktails() { responseData ->
-                requireActivity().runOnUiThread {
-                    var data = responseData;
-                Log.i("search","$data")
+        recyclerView = view.findViewById(R.id.recycler_view_cocktails)
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
+    }
 
-                val recyclerView: RecyclerView = view.findViewById(R.id.recycler_view_cocktails)
-                Log.i("Test", "My data $data")
-                val divider = MaterialDividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL /*or LinearLayoutManager.HORIZONTAL*/)
-                recyclerView.addItemDecoration(divider)
-                val cocktailAdapter =  context?.let { CocktailAdapter(it, data) }
-                recyclerView.adapter = cocktailAdapter
-
-                searchView = view.findViewById(R.id.search_view)
-                searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-                    override fun onQueryTextSubmit(query: String?): Boolean {
-                        Log.i("Search", "Final query: $query")
-                        return false
-                    }
-
-                    override fun onQueryTextChange(newText: String?): Boolean {
-                        Log.i("Search", "This is the tmp query $newText")
-                        cocktailAdapter?.filter?.filter(newText)
-                        return true
-                    }
-
-                })
+    private fun setupSearchView() {
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                Log.i("Search", "Final query: $query")
+                return false
             }
-        }
 
+            override fun onQueryTextChange(newText: String?): Boolean {
+                Log.i("Search", "This is the tmp query $newText")
+                cocktailAdapter.filter.filter(newText)
+                return true
+            }
+        })
+    }
 
+    private fun updateUI(cocktails: ArrayList<Cocktail>) {
+        cocktailAdapter = ListCocktailAdapter(this, cocktails)
+        recyclerView.layoutManager = LinearLayoutManager(context)
+        recyclerView.adapter = cocktailAdapter
+    }
+
+    private fun fetchCocktails() {
+        CocktailsFetcher.fetchCocktails(
+            name = "shake",
+            type = 0,
+            success = { cocktails -> requireActivity().runOnUiThread { updateUI(cocktails) } },
+            failure = { requireActivity().runOnUiThread { showErrorDialog() } }
+        )
+
+/*        CocktailsFetcher.fetchAllCocktails(
+            success = { cocktails -> requireActivity().runOnUiThread { updateUI(cocktails) } },
+            failure = { requireActivity().runOnUiThread { showErrorDialog() } }
+        )*/
+    }
+
+    private fun showErrorDialog() {
+        MaterialAlertDialogBuilder(requireContext()).apply {
+            setMessage("Unable to load the ingredients")
+            setPositiveButton("Reload") { _, _ -> fetchCocktails() }
+        }.show()
     }
 
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment SearchFragment.
-         */
-        // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance() = SearchFragment()
+    }
+
+    override fun onFragmentChange(newFragment: Fragment) {
+        requireActivity().supportFragmentManager.beginTransaction()
+            .replace(R.id.fragment_container_view, newFragment)
+            .addToBackStack("SearchFragment")
+            .commit()
     }
 }
