@@ -7,7 +7,7 @@
     tools:context=".ui.search.SearchFragment">
 
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="15dp">
@@ -18,10 +18,7 @@
             android:layout_margin="8dp"
             app:cardCornerRadius="8dp"
             app:cardElevation="4dp"
-            android:id="@+id/card_search_view"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
+            android:id="@+id/card_search_view">
 
             <androidx.appcompat.widget.SearchView
                 android:layout_width="match_parent"
@@ -29,8 +26,7 @@
                 app:queryHint="Search here ..."
                 android:id="@+id/search_view"
                 app:queryBackground="@android:color/transparent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
+
                 app:iconifiedByDefault="false">
 
             </androidx.appcompat.widget.SearchView>
@@ -44,21 +40,17 @@
             android:layout_centerVertical="true"
             android:id="@+id/progress_indicator"
             app:layout_constraintTop_toBottomOf="@+id/card_search_view"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
             />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view_cocktails"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:scrollbars="vertical"
             app:layoutManager="LinearLayoutManager"
-            app:layout_constraintTop_toBottomOf="@+id/card_search_view"
-            android:paddingTop="15dp"/>
+            android:layout_below="@+id/card_search_view"/>
 
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </RelativeLayout>
 
 </FrameLayout>

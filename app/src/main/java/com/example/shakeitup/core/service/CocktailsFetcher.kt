@@ -1,5 +1,6 @@
 package com.example.shakeitup.core.service
 
+import android.annotation.SuppressLint
 import android.util.Log
 import com.example.shakeitup.core.model.Categories
 import com.example.shakeitup.core.model.Cocktail
@@ -23,7 +24,7 @@ class CocktailsFetcher {
 
         fun fetchCocktails(name: String, type: Int, success: (ArrayList<Cocktail>) -> Unit, failure: () -> Unit) {
 
-            var url : URL
+            val url : URL
             if (type == 0){
                 url = URL("https://www.thecocktaildb.com/api/json/v1/1/filter.php?c="+name)
             }
@@ -86,6 +87,7 @@ class CocktailsFetcher {
             }
         }
 
+        @SuppressLint("SuspiciousIndentation")
         fun fetchAllCocktails(success: (ArrayList<Cocktail>) -> Unit, failure: () -> Unit) {
             val categoriesFetcher = CategoriesFetcher()
             categoriesFetcher.fetchData<Categories>(
