@@ -1,7 +1,6 @@
 package com.example.shakeitup.ui.shoppingList
 
 import android.content.Context
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -14,7 +13,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.shakeitup.R
 import com.example.shakeitup.core.model.ListIngredients
-import com.example.shakeitup.ui.details.ListIngredientsAdapter
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
@@ -50,9 +48,9 @@ class ShoppingListFragment : Fragment() {
                 textEmpty.visibility = View.GONE
             }
         }
-        val shoppingListAdater = ShoppingListAdater(listIngredients)
+        val shoppingListAdapter = ShoppingListAdapter(listIngredients)
         recyclerView.layoutManager = LinearLayoutManager(context)
-        recyclerView.adapter = shoppingListAdater
+        recyclerView.adapter = shoppingListAdapter
 
     }
 

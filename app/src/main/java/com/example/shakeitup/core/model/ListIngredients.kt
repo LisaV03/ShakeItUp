@@ -16,7 +16,12 @@ class ListIngredients(ingredients : HashMap<String, String>) {
     fun mergeIngredients(newListIngredients : ListIngredients) {
         newListIngredients.listIngredients.forEach { (ingredient, measure) ->
                 if (this.listIngredients.isNullOrEmpty() || ! this.listIngredients.containsKey(ingredient)) {
-                    this.listIngredients.put(ingredient, measure)
+                    if (measure == null){
+                        this.listIngredients.put(ingredient, "")
+                    }
+                    else {
+                        this.listIngredients.put(ingredient, measure)
+                    }
                 }
             }
         }
