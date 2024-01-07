@@ -62,17 +62,17 @@ class SearchFragment : Fragment(), FragmentChangeListener {
     }
 
     private fun fetchCocktails() {
-        CocktailsFetcher.fetchCocktails(
+/*        CocktailsFetcher.fetchCocktails(
             name = "shake",
             type = 0,
             success = { cocktails -> requireActivity().runOnUiThread { updateUI(cocktails) } },
             failure = { requireActivity().runOnUiThread { showErrorDialog() } }
-        )
+        )*/
 
-/*        CocktailsFetcher.fetchAllCocktails(
+        CocktailsFetcher.fetchAllCocktails(
             success = { cocktails -> requireActivity().runOnUiThread { updateUI(cocktails) } },
             failure = { requireActivity().runOnUiThread { showErrorDialog() } }
-        )*/
+        )
     }
 
     private fun showErrorDialog() {

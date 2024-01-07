@@ -18,9 +18,11 @@ class CocktailsFetcher {
     companion object {
         //Type 0 is for categories research
         //Type 1 for ingredients research
+
+        private val client = OkHttpClient()
+
         fun fetchCocktails(name: String, type: Int, success: (ArrayList<Cocktail>) -> Unit, failure: () -> Unit) {
 
-            val client = OkHttpClient()
             var url : URL
             if (type == 0){
                 url = URL("https://www.thecocktaildb.com/api/json/v1/1/filter.php?c="+name)
@@ -62,33 +64,47 @@ class CocktailsFetcher {
                 })
         }
 
-        /*fun fetchAllCocktails(success: (ArrayList<Cocktail>) -> Unit, failure: () -> Unit) {
+        private fun executeRequest(url: URL): Response {
+            val request = Request.Builder().url(url).build()
+            return client.newCall(request).execute()
+        }
+
+        private fun handleSuccessfulResponse(response: Response): List<Cocktail>{
+            if (response.isSuccessful) {
+                val responseBody = response.body?.string()
+                Log.i("OKHTTP", responseBody ?: "Empty")
+
+                // Deserialize the category in an List of Categories
+                val gson = Gson()
+                val cocktailResponseType =
+                    object : TypeToken<CocktailsResponse>() {}.type
+                val cocktailResponse: CocktailsResponse =
+                    gson.fromJson(responseBody, cocktailResponseType)
+                return cocktailResponse.drinks
+            }else{
+                return emptyList()
+            }
+        }
+
+        fun fetchAllCocktails(success: (ArrayList<Cocktail>) -> Unit, failure: () -> Unit) {
             val categoriesFetcher = CategoriesFetcher()
             categoriesFetcher.fetchData<Categories>(
                 success = { categories ->
                     val allCocktails = mutableListOf<Cocktail>()
-
-                    for (category in categories) {
-                        fetchCocktails(
-                            category.name,
-                            0,
-                            success = { cocktails ->
-                                allCocktails.addAll(cocktails)
-                            },
-                            failure = {
-                                Log.e("OKHTTP","We've got a problem here ! - but we fetched the categories")
-                            }
-                        )
+                    for(category in categories){
+                        val url = URL("https://www.thecocktaildb.com/api/json/v1/1/filter.php?c="+category.name)
+                        val response = executeRequest(url)
+                        val cocktailList = handleSuccessfulResponse(response)
+                            allCocktails.addAll(cocktailList)
                     }
                     success(allCocktails as ArrayList<Cocktail>)
                 },
                 failure = {
                     // Handle failure for fetching categories
                     Log.e("OKHTTP","We've got a when fetching the categories ...")
-
                     failure()
                 }
             )
-        }*/
+        }
     }
 }
