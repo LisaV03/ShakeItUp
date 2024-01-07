@@ -199,23 +199,6 @@ class CocktailDetail(id: Int, name: String, drinkAlternate : String, tags : Stri
         return ListIngredients(ingredients)
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
 
 class CocktailDetailResponse(
