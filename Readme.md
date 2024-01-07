@@ -14,5 +14,5 @@ Nous avons développé les fonctionnalités suivantes :
 
 Difficultés rencontrées :
 - Répartir le code comme il faut entre les différents fichiers.
-- Essayer de factoriser les fonctionnalités/parties du code
+- Essayer de factoriser les fonctionnalités/parties du code (ça a été fait pour le Fetcher mais on aurait aussi aimé le faire pour les fragment/adapter/viewholder qui ont pour la plupart un fonctionnement similaire)
 - Essayer de faire fonctionner la searchBar de Material Design 3 (on s'est tournée vers une solution plus simple au final avec la SearchView)
