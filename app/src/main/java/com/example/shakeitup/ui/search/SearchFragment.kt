@@ -86,7 +86,7 @@ class SearchFragment : Fragment(), FragmentChangeListener {
 
     private fun showErrorDialog() {
         MaterialAlertDialogBuilder(requireContext()).apply {
-            setMessage("Unable to load the ingredients")
+            setMessage("Unable to load the cocktails")
             setPositiveButton("Reload") { _, _ -> fetchCocktails() }
         }.show()
     }
