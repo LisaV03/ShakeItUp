@@ -15,12 +15,14 @@ import com.example.shakeitup.core.model.Cocktail
 import com.example.shakeitup.core.service.CocktailsFetcher
 import com.example.shakeitup.ui.listCocktails.ListCocktailAdapter
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.progressindicator.CircularProgressIndicator
 
 class SearchFragment : Fragment(), FragmentChangeListener {
 
     private lateinit var searchView: SearchView
     private lateinit var recyclerView: RecyclerView
     private lateinit var cocktailAdapter: ListCocktailAdapter
+    private lateinit var progressIndicator: CircularProgressIndicator
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,6 +40,11 @@ class SearchFragment : Fragment(), FragmentChangeListener {
 
         recyclerView = view.findViewById(R.id.recycler_view_cocktails)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
+
+        progressIndicator = view.findViewById(R.id.progress_indicator)
+        recyclerView.visibility = View.GONE
+        progressIndicator.visibility = View.VISIBLE
+        progressIndicator.isIndeterminate = true
     }
 
     private fun setupSearchView() {
@@ -59,6 +66,8 @@ class SearchFragment : Fragment(), FragmentChangeListener {
         cocktailAdapter = ListCocktailAdapter(this, cocktails)
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.adapter = cocktailAdapter
+        recyclerView.visibility = View.VISIBLE
+        progressIndicator.visibility = View.GONE
     }
 
     private fun fetchCocktails() {
