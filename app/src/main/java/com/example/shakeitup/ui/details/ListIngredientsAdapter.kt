@@ -25,6 +25,4 @@ class ListIngredientsAdapter (val ingredients: ListIngredients) : RecyclerView.A
         holder.measure.text = (ingredients.getlistIngredients().get(keys[position]))
     }
 
-
-
 }

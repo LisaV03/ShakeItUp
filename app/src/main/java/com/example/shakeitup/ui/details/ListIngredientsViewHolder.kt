@@ -13,11 +13,8 @@ class ListIngredientsViewHolder(itemView: View) :
     val measure: TextView
 
     init {
-
         ingredient = itemView.findViewById(R.id.cocktail_ingredients)
         measure = itemView.findViewById(R.id.cocktail_measures)
-
-
     }
 
 }

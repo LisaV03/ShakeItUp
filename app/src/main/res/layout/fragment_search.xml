@@ -6,22 +6,41 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.search.SearchFragment">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="15dp">
-        
-        <androidx.appcompat.widget.SearchView
+
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:queryHint="Search here ..."
-            android:id="@+id/search_view"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:iconifiedByDefault="false">
+            android:layout_margin="8dp"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="4dp"
+            android:id="@+id/card_search_view">
 
-        </androidx.appcompat.widget.SearchView>
+            <androidx.appcompat.widget.SearchView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:queryHint="Search here ..."
+                android:id="@+id/search_view"
+                app:queryBackground="@android:color/transparent"
 
+                app:iconifiedByDefault="false">
+
+            </androidx.appcompat.widget.SearchView>
+
+        </androidx.cardview.widget.CardView>
+
+        <com.google.android.material.progressindicator.CircularProgressIndicator
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:id="@+id/progress_indicator"
+            app:layout_constraintTop_toBottomOf="@+id/card_search_view"
+            />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view_cocktails"
@@ -29,13 +48,9 @@
             android:layout_height="wrap_content"
             android:scrollbars="vertical"
             app:layoutManager="LinearLayoutManager"
-            app:layout_constraintTop_toBottomOf="@+id/search_view"
-            android:paddingTop="15dp" />
-
-        
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            android:layout_below="@+id/card_search_view"/>
 
 
-
+    </RelativeLayout>
 
 </FrameLayout>
