@@ -17,7 +17,7 @@ class ListIngredients(ingredients : HashMap<String, String>) {
         newListIngredients.listIngredients.forEach { (ingredient, measure) ->
                 if (this.listIngredients.isNullOrEmpty() || ! this.listIngredients.containsKey(ingredient)) {
                     if (measure == null){
-                        this.listIngredients.put(ingredient, "")
+                        this.listIngredients.put(ingredient, "null")
                     }
                     else {
                         this.listIngredients.put(ingredient, measure)
