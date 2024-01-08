@@ -1,0 +1,12 @@
+1. Add the tab Bar with Search, Categories and Ingredients
+2. Create the http call to categories and display them
+3. Display the list of cocktails by categories after clicking on the card in the category tab
+4. Display the details of a recipe
+5. Display the list of ingredients
+6. Create the link between ingredients and cocktail recipes
+7. Add ImageView in fragment/layout
+8. Add new Design of Categories
+9. Remove the bug on some fragment changes
+10. Add the possibility to shake the phone and get a random cocktail
+11. Add the possibility to add ingredients of a cocktail in a shopping list
+12. Change the icon of the app, improve the shoppingList system, imrpove the aesthetic of the app, improve logic in tab changes
