@@ -193,7 +193,12 @@ class CocktailDetail(id: Int, name: String, drinkAlternate : String, tags : Stri
 
         for (i in 0..listIngredients.size-1) {
             if (listIngredients[i] != null) {
-                ingredients.put(listIngredients[i], listMeasures[i])
+                if (listMeasures[i] == null){
+                    ingredients.put(listIngredients[i], " ")
+                }
+                else {
+                    ingredients.put(listIngredients[i], listMeasures[i])
+                }
             }
         }
         return ListIngredients(ingredients)

@@ -93,6 +93,7 @@ class CocktailDetailFragment : Fragment() {
                 val image : ImageView = view.findViewById(R.id.cocktail_detail_image)
                 val recyclerView: RecyclerView = view.findViewById(R.id.recycler_view_ingredient)
                 val listIngredientsNew : ListIngredients = cocktailDetail.getIngredientsMap()
+
                 Picasso.get().load(cocktailDetail.drinkThumb).into(image)
 
                 val listIngredientsAdapter = ListIngredientsAdapter(listIngredientsNew)
